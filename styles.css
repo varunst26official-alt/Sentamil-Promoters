@@ -901,6 +901,14 @@ h1 em, h2 span {
   margin-bottom: 24px;
 }
 
+.project-copy {
+  /* Grid items default to min-width:auto, which lets an inner
+     non-shrinking scroller (the feature tabs) blow the track out far past
+     the viewport. min-width:0 lets the tabs' own overflow-x:auto scroll
+     instead of stretching the whole column. */
+  min-width: 0;
+}
+
 .project-copy > p:not(.large-copy),
 .location-copy > p:not(.large-copy),
 .contact-section p {
@@ -1832,12 +1840,14 @@ footer {
     margin-top: 28px;
   }
   .project-image {
-    /* Full-bleed on phones. The banner is very wide, so at column width
-       the artwork's own text becomes unreadably small. Going edge-to-edge
-       uses the full viewport and keeps all of the image legible. */
-    margin-left: -5vw;
-    margin-right: -5vw;
-    width: calc(100% + 10vw);
+    /* Full-bleed on phones. The banner is a very wide composition, so at
+       column width its own baked-in text becomes unreadably small. Going
+       edge-to-edge uses the whole viewport and keeps every element of the
+       artwork legible. width:100vw + the 50%/-50vw centring is exact and
+       does not depend on the grid track's percentage resolving a certain
+       way. Requires .project-copy's min-width:0 fix above to be in place. */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
     border-radius: 0;
   }
   .large-copy {
@@ -2010,12 +2020,6 @@ footer {
   .statement { padding: 44px 4vw; }
   .section, .dark-section { padding: 44px 4vw; }
   .contact-section { padding: 44px 4vw; }
-  /* Full-bleed must match this breakpoint's 4vw gutter */
-  .project-image {
-    margin-left: -4vw;
-    margin-right: -4vw;
-    width: calc(100% + 8vw);
-  }
 
   .feature-tab { padding: 9px 10px; font-size: 10px; }
   .contact-phone { font-size: 17px; }
