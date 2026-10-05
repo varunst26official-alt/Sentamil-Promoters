@@ -873,22 +873,23 @@ h1 em, h2 span {
   align-items: center;
 }
 
-/* The frame matches the source artwork's real proportions
-   (assets/sentamil-aura.jpg = 1376x768) so the full image is always
-   visible. A fixed height here combined with object-fit:cover was
-   cropping roughly half of the banner. */
+/* Crop-proof: the img sizes itself from its own intrinsic ratio
+   (width:100% + height:auto), so there is no box for object-fit to
+   crop against. sentamil-aura.jpg is 1376x768 — a wide banner — and
+   any fixed height here previously sliced off its right-hand text
+   panel. Do not reintroduce a height or aspect-ratio on this box. */
 .project-image {
   width: 100%;
-  aspect-ratio: 1376 / 768;
-  height: auto;
   border-radius: 4px;
   overflow: hidden;
   background: #e8e3d8;
+  line-height: 0; /* removes the inline-image descender gap */
 }
 
 .project-image img {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   object-position: center;
 }
@@ -1831,10 +1832,13 @@ footer {
     margin-top: 28px;
   }
   .project-image {
-    /* Inherit the aspect-ratio from the base rule — forcing a height here
-       would crop the banner again on phones. */
-    height: auto;
-    max-height: none;
+    /* Full-bleed on phones. The banner is very wide, so at column width
+       the artwork's own text becomes unreadably small. Going edge-to-edge
+       uses the full viewport and keeps all of the image legible. */
+    margin-left: -5vw;
+    margin-right: -5vw;
+    width: calc(100% + 10vw);
+    border-radius: 0;
   }
   .large-copy {
     font-size: clamp(18px, 5vw, 26px);
@@ -2006,6 +2010,12 @@ footer {
   .statement { padding: 44px 4vw; }
   .section, .dark-section { padding: 44px 4vw; }
   .contact-section { padding: 44px 4vw; }
+  /* Full-bleed must match this breakpoint's 4vw gutter */
+  .project-image {
+    margin-left: -4vw;
+    margin-right: -4vw;
+    width: calc(100% + 8vw);
+  }
 
   .feature-tab { padding: 9px 10px; font-size: 10px; }
   .contact-phone { font-size: 17px; }
