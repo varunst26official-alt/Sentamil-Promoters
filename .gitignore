@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / OS cruft
+*.swp
+*~
+.vscode/*.log
+
+# Dependencies (none currently, but safe to keep)
+node_modules/
