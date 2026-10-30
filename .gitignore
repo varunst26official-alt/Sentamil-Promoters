@@ -10,3 +10,6 @@ desktop.ini
 
 # Dependencies (none currently, but safe to keep)
 node_modules/
+
+# Independent portfolio repo
+portfolio/
